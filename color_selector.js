@@ -1,14 +1,27 @@
 "use strict";
 
-//Color input Value
-const inputColor = document.querySelector("input").value; //Getting the color from the input.
+// Done !!!
 
-console.log(inputColor);
+//Global Variavle to be defined.
+let inputColor;
 
-// 1 . Function to Convert that value that is HEX to RGB
+//When load initiate !
+document.addEventListener("DOMContentLoaded", init);
 
-hexToRGB(inputColor);
-function hexToRGB(hexNr) {
+function init() {
+  //When initiate call the function to define the input value.
+  document.querySelector("input").addEventListener("input", defineInput);
+}
+
+//Define Input Value (Color)
+function defineInput() {
+  inputColor = document.querySelector("input").value; //Getting the color from the input.
+  hexToRgb(inputColor);
+}
+
+// 1 . Function to Convert that value /HEX) to RGB.
+//Here we define r, g, and b variables that would be used later in the function rgbToHsl
+function hexToRgb(hexNr) {
   //Clean the string
   const number = hexNr.substring("1");
   console.log(number);
@@ -35,15 +48,16 @@ function hexToRGB(hexNr) {
   console.log(rgb);
   console.log(hex);
 
+  //Callback display RGB amd HEX
   displayRgb(r, g, b);
   displayHex(hex);
 
-  rgbToColor(r, g, b);
+  //Now that I have the r, g, b variables/values --> Callback the function that convert them to HSL
+  rgbToHsl(r, g, b);
 }
 
-// 2 . Function to Convert the second value that is RGB to HSL
-
-function rgbToColor(r, g, b) {
+// 2 . Function to Convert the second value (RGB) to HSL
+function rgbToHsl(r, g, b) {
   r /= 255;
   g /= 255;
   b /= 255;
@@ -83,9 +97,9 @@ function rgbToColor(r, g, b) {
   displayHsl(h, s, l);
 }
 
-// 3 . Function to display those values.
-
+// 3 . Function to display those values in the DOM.
 function displayRgb(one, two, three) {
+  //the param one, two, three are references to r, g, b variables that the callbak function uses.
   document.querySelector(".r").textContent = one;
   document.querySelector(".g").textContent = two;
   document.querySelector(".b").textContent = three;
